@@ -1,0 +1,79 @@
+body {
+    font-family: 'Garamond';
+    background-image: url('../hills.jpg');
+
+    background-image: url('./hills.jpg');
+    background-size: 220vh;
+}
+
+.content {
+    color: white;
+    display: flex;
+}
+
+.datetime {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: black;
+}
+
+.agenda {
+    padding: 1.5vh;
+    width: 40%;
+}
+
+.day {
+    padding-top: 4vh;
+    padding-left: 1vh;
+}
+
+.day-title {
+    font-size: 5vh;
+    border-bottom: 2px groove white;
+}
+
+.day-contents {
+    font-size: 3vh;
+    white-space: pre-line;
+    margin-top: -3.5vh;
+}
+
+#time {
+    font-size: 17vh;
+    font-weight: 900;
+}
+
+#date {
+    font-size: 7vh;
+    display: block;
+}
+
+.message {
+    width: 50%;
+    padding-top: 25vh;
+    padding-left: 5vh;
+    text-align: center;
+    font-size: 5vh;
+}
+
+.message-alert {
+    font-size: 6vh;
+    color: white;
+    font-weight: 900;
+    text-shadow:
+    3px 3px 0 #000,
+   -3px -3px 0 #000,  
+    3px -3px 0 #000,
+   -3px  3px 0 #000,
+    3px  3px 0 #000
+}
+
+#message-time {
+    font-size: 5.5vh;
+    font-weight: 100;
+}
+
+#message-body {
+    padding-top: 5vh;
+}
