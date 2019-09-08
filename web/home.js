@@ -1,11 +1,74 @@
 
 window.onload = function() {
     getDateTime();
+    checkForMessages();
+
+    // for now
+    updateCalendar();
+}
+
+// Check every 6 hours if it is between 12am and 7am
+// at that time, update the calendar
+// now this would obviously be better to come from backend and alert hmmmm
+window.setInterval(function(){ 
+    let date = new Date(); 
+    if(date.getHours <= 7){ 
+        updateCalendar();
+    }
+}, 1000*60*60*6); 
+
+function checkForMessages() {
+    // call wuy.checkForMessages, continue checking, set timer for 5 hours
+    // if nothing new in 5 hours, go ahead and go to default message
+
+    // updateMessageInfo('&#9758; Nouveau! &#9756;', time, from, text)
+
+    // default message
+    updateMessageInfo('Boîte de Réception', null, 'Passes une bonne journée! \n Bisous, Anna')
+
+    // now this would obviously be better to come from backend and alert hmmmm
+}
+
+async function updateCalendar() {
+    console.log('gonna update cal');
+    // let events = await wuy.calendarEvents();
+    // console.log(events);
+    // 2019-09-12T10:00:00-07:00 :: iso format
+    // list of events : summary, start, allday
+    let events = [{summary:'birthday', start:'2019-09-12T10:00:00-07:00', allday: false}]
+
+    let date = new Date();
+    let dayOfWeek = date.getDay();
+    let agenda = [];
+
+    for (let i = 0; i < 4; i++) {
+        agenda.push({
+            day: dayOfWeek + i,
+            date: date.setDate(date.getDate() + 1),
+            events: []
+        });
+    }
+    console.log(agenda);
+
+    for (let e of events) {
+        console.log(e);
+        let d = new Date('2019-09-12T10:00:00-07:00 ');
+        console.log(d);
+        let agendaItem = agenda.filter((item) => {
+            if (item.date === d) return item;
+        });
+        console.log(agendaItem);
+    }
+
+    // now this would obviously be better to come from backend and alert hmmmm
 }
 
 // update area with #message-time with new message time
-
-// update area with #message-body
+function updateMessageInfo(notification, time, body) {
+    document.getElementById('message-notification').innerHTML = notification;
+    document.getElementById('message-body').innerHTML = body;
+    document.getElementById('message-time').innerHTML = time;
+}
 
 function convertMonth(month) {
     switch (month) {
