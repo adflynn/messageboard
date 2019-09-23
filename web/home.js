@@ -72,22 +72,24 @@ window.setInterval(function () {
 }, 1000 * 60 * 10);
 
 async function checkForMessages() {
-    let message = await wuy.emails();
+    let currentMessageID = document.getElementById('message-id').text;
+    let message = await wuy.emails(currentMessageID);
     let currentTime = moment();
     let messageTime = moment(message['time'])
     let fourHoursAgo = currentTime.subtract('4', 'hours');
 
     if (messageTime < fourHoursAgo) {
-        updateMessageInfo('Boîte de Réception', null, 'Passes une bonne journée! \n Bisous, Anna')
-    } else {
-        updateMessageInfo('&#9758; Nouveau! &#9756;', messageTime.format('HH:mm'), message['contents'])
+        updateMessageInfo('Boîte de Réception', null, 'Passes une bonne journée! \n Bisous, Anna', '0');
+    } else if (message['id'] !== currentMessageID) {
+        updateMessageInfo('&#9758; Nouveau! &#9756;', messageTime.format('HH:mm'), message['contents'], message['id']);
     }
 }
 
-function updateMessageInfo(notification, time, body) {
+function updateMessageInfo(notification, time, body, id) {
     document.getElementById('message-notification').innerHTML = notification;
     document.getElementById('message-body').innerHTML = body;
     document.getElementById('message-time').innerHTML = time;
+    document.getElementById('message-id').text = id;
 }
 
 function convertMonth(month) {

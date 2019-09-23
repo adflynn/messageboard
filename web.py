@@ -8,6 +8,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import base64
 import email
+from playsound import playsound
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly',
@@ -74,7 +75,7 @@ class home(wuy.Window):
         print('got through')
         return agenda
 
-    def emails(self):
+    def emails(self, id):
         creds = None
         # The file token.pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
@@ -99,7 +100,6 @@ class home(wuy.Window):
         # Call the Gmail API
         messages = service.users().messages().list(userId='me').execute()
         latest = messages['messages'][0]
-        # print(messages)
 
         message = service.users().messages().get(userId='me', id=latest['id']).execute()
 
@@ -113,6 +113,9 @@ class home(wuy.Window):
                 id = header['value']
             elif header['name'] == 'Date':
                 time = header['value']
+
+        if latest['id'] != id:
+            playsound('definite.mp3')
 
         return email(readablebody, time, id)
 
