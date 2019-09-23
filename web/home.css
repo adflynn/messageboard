@@ -4,6 +4,8 @@ body {
 
     background-image: url('./hills.jpg');
     background-size: 220vh;
+
+    font-family: 'Helvetica';
 }
 
 .content {
@@ -36,7 +38,6 @@ body {
 .day-contents {
     font-size: 3vh;
     white-space: pre-line;
-    margin-top: -3.5vh;
 }
 
 #time {
@@ -51,7 +52,7 @@ body {
 
 .message {
     width: 50%;
-    padding-top: 25vh;
+    padding-top: 20vh;
     padding-left: 5vh;
     text-align: center;
     font-size: 5vh;

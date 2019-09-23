@@ -1,69 +1,89 @@
 
-window.onload = function() {
+window.onload = function () {
     getDateTime();
     checkForMessages();
-
-    // for now
     updateCalendar();
 }
 
-// Check every 6 hours if it is between 12am and 7am
+// check every 6 hours if it is between 12am and 6am
 // at that time, update the calendar
-// now this would obviously be better to come from backend and alert hmmmm
-window.setInterval(function(){ 
-    let date = new Date(); 
-    if(date.getHours <= 7){ 
+window.setInterval(function () {
+    let date = new Date();
+    if (date.getHours <= 6) {
         updateCalendar();
     }
-}, 1000*60*60*6); 
-
-function checkForMessages() {
-    // call wuy.checkForMessages, continue checking, set timer for 5 hours
-    // if nothing new in 5 hours, go ahead and go to default message
-
-    // updateMessageInfo('&#9758; Nouveau! &#9756;', time, from, text)
-
-    // default message
-    updateMessageInfo('Boîte de Réception', null, 'Passes une bonne journée! \n Bisous, Anna')
-
-    // now this would obviously be better to come from backend and alert hmmmm
-}
+}, 1000 * 60 * 60 * 6);
 
 async function updateCalendar() {
-    console.log('gonna update cal');
-    // let events = await wuy.calendarEvents();
-    // console.log(events);
-    // 2019-09-12T10:00:00-07:00 :: iso format
-    // list of events : summary, start, allday
-    let events = [{summary:'birthday', start:'2019-09-12T10:00:00-07:00', allday: false}]
+    let events = await wuy.calendarEvents();
 
-    let date = new Date();
-    let dayOfWeek = date.getDay();
+    let datetime = moment();
+    let date = datetime.date();
+    let dayOfWeek = datetime.day();
     let agenda = [];
 
     for (let i = 0; i < 4; i++) {
         agenda.push({
             day: dayOfWeek + i,
-            date: date.setDate(date.getDate() + 1),
+            date: date + i,
             events: []
         });
     }
-    console.log(agenda);
 
     for (let e of events) {
-        console.log(e);
-        let d = new Date('2019-09-12T10:00:00-07:00 ');
-        console.log(d);
-        let agendaItem = agenda.filter((item) => {
-            if (item.date === d) return item;
+        let d = moment(e.time);
+        let date = d.date();
+        agenda.forEach((item) => {
+            if (item.date === date) {
+                if (e.allday) {
+                    item.events.push({ title: e.title, time: null });
+                } else {
+                    let time = moment(e.time).format("HH:mm");
+                    item.events.push({ title: e.title, time: time });
+                }
+            }
         });
-        console.log(agendaItem);
     }
+    agenda.forEach((item, index) => {
+        if (item.events.length === 0) {
+            item.events.push({ title: 'n\'importe quoi', time: null });
+        }
 
-    // now this would obviously be better to come from backend and alert hmmmm
+        let titleID = 'day' + index;
+        document.getElementById(titleID).innerHTML = convertDay(item.day) + ', ' + item.date;
+
+        let contentsID = 'day' + index + 'contents';
+        let contents = '';
+        for (let e of item.events) {
+            console.log(e);
+            if (e.time) {
+                contents += e.time + ' - ' + e.title + '\n';
+            } else {
+                contents += e.title + '\n';
+            }
+        }
+        document.getElementById(contentsID).innerHTML = contents;
+    });
 }
 
-// update area with #message-time with new message time
+// check every 20 minutes for new messages
+window.setInterval(function () {
+    checkForMessages();
+}, 1000 * 60 * 10);
+
+async function checkForMessages() {
+    let message = await wuy.emails();
+    let currentTime = moment();
+    let messageTime = moment(message['time'])
+    let fourHoursAgo = currentTime.subtract('4', 'hours');
+
+    if (messageTime < fourHoursAgo) {
+        updateMessageInfo('Boîte de Réception', null, 'Passes une bonne journée! \n Bisous, Anna')
+    } else {
+        updateMessageInfo('&#9758; Nouveau! &#9756;', messageTime.format('HH:mm'), message['contents'])
+    }
+}
+
 function updateMessageInfo(notification, time, body) {
     document.getElementById('message-notification').innerHTML = notification;
     document.getElementById('message-body').innerHTML = body;
@@ -72,7 +92,7 @@ function updateMessageInfo(notification, time, body) {
 
 function convertMonth(month) {
     switch (month) {
-        case 0: 
+        case 0:
             return 'Janvier';
         case 1:
             return 'Février';
@@ -81,7 +101,7 @@ function convertMonth(month) {
         case 3:
             return 'Avril';
         case 4:
-            return 'Mai';        
+            return 'Mai';
         case 5:
             return 'Juin';
         case 6:
@@ -101,7 +121,7 @@ function convertMonth(month) {
 
 function convertDay(day) {
     switch (day) {
-        case 1: 
+        case 1:
             return 'Lundi';
         case 2:
             return 'Mardi';
@@ -110,7 +130,7 @@ function convertDay(day) {
         case 4:
             return 'Jeudi';
         case 5:
-            return 'Vendredi';        
+            return 'Vendredi';
         case 6:
             return 'Samedi';
         default:
@@ -119,36 +139,20 @@ function convertDay(day) {
 }
 
 function formatDate(date) {
-    let month = convertMonth(date.getMonth());
-    let day = convertDay(date.getDay());
-    let numeral = date.getDate();
+    let month = convertMonth(date.month());
+    let day = convertDay(date.day());
+    let numeral = date.date();
     return day + ', ' + numeral + ' ' + month;
 }
 
-function formatTime(time) {
-    let hours = time.getHours();
-    let minutes = time.getMinutes() < 10 ? '0'+time.getMinutes() : time.getMinutes();
-    return hours + ':' + minutes;
-}
-            
-function getTime() {
-    let dt = new Date();
-    let time = formatTime(dt);
-    document.getElementById('time').innerHTML = time;
-}
-
-function getDate() {
-    let dt = new Date();
-    let date = formatDate(dt);
-    document.getElementById('date').innerHTML = date;
-}
-
 function getDateTime() {
-    getTime();
-    getDate();
+    let date = moment();
+    document.getElementById('date').innerHTML = formatDate(date);
+    document.getElementById('time').innerHTML = date.format('HH:mm');
+
     setDateTimeDelay();
 }
 
 function setDateTimeDelay() {
-    mydate=setTimeout('getDateTime()', 10000)
+    mydate = setTimeout('getDateTime()', 10000)
 }
