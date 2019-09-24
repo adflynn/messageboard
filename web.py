@@ -29,6 +29,7 @@ class email(object):
 
 class home(wuy.Window):
     def calendarEvents(self):
+        print('********* BEGIN CALENDAR EVENT FETCH *********')
         creds = None
         # The file token.pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
@@ -51,7 +52,7 @@ class home(wuy.Window):
         service = build('calendar', 'v3', credentials=creds)
 
         # Call the Calendar API for the next 4 days
-        print('getting some events')
+        print('********* AUTH SET UP *********')
         now = datetime.datetime.utcnow().isoformat() + 'Z'
         fourdays = date_N_days_ago = datetime.datetime.utcnow() + datetime.timedelta(days=4)
         fourdays = fourdays.isoformat() + 'Z'
@@ -61,7 +62,7 @@ class home(wuy.Window):
         events = events_result.get('items', [])
         agenda = []
         if not events:
-            print('No upcoming events found.')
+            print('********* NO EVENTS FOUND *********')
         for e in events:
             start = e['start'].get('dateTime')
             allday = False
@@ -72,11 +73,12 @@ class home(wuy.Window):
             agenda.append(event(summary, start, allday))
             print(summary, start, allday)
 
-        print('got through')
+        print('********* SUCCESSFULLY GOT EVENTS *********')
         return agenda
 
     def emails(self, id):
         creds = None
+        print('********* BEGIN EMAIL FETCH *********')
         # The file token.pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
@@ -94,6 +96,7 @@ class home(wuy.Window):
             # Save the credentials for the next run
             with open('token.pickle', 'wb') as token:
                 pickle.dump(creds, token)
+        print('********* AUTH SET UP *********')
 
         service = build('gmail', 'v1', credentials=creds)
 
@@ -116,6 +119,7 @@ class home(wuy.Window):
 
         if latest['id'] != id:
             playsound('definite.mp3')
+        print('********* SUCCESSFUL FETCH OF MAIL *********')
 
         return email(readablebody, time, id)
 

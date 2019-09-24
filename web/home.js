@@ -15,7 +15,10 @@ window.setInterval(function () {
 }, 1000 * 60 * 60 * 6);
 
 async function updateCalendar() {
+    console.log('going to call events');
     let events = await wuy.calendarEvents();
+    console.log('successfully got events');
+    console.log(events);
 
     let datetime = moment();
     let date = datetime.date();
@@ -55,7 +58,6 @@ async function updateCalendar() {
         let contentsID = 'day' + index + 'contents';
         let contents = '';
         for (let e of item.events) {
-            console.log(e);
             if (e.time) {
                 contents += e.time + ' - ' + e.title + '\n';
             } else {
@@ -72,8 +74,11 @@ window.setInterval(function () {
 }, 1000 * 60 * 10);
 
 async function checkForMessages() {
+    console.log('going to check for emails');
     let currentMessageID = document.getElementById('message-id').text;
     let message = await wuy.emails(currentMessageID);
+    console.log('got email');
+    console.log(message);
     let currentTime = moment();
     let messageTime = moment(message['time'])
     let fourHoursAgo = currentTime.subtract('4', 'hours');
