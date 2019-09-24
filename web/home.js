@@ -5,17 +5,16 @@ window.onload = function () {
     updateCalendar();
 }
 
-// check every 6 hours if it is between 12am and 6am
-// at that time, update the calendar
+// check every 6 hours and update the calendar
 window.setInterval(function () {
-    let date = new Date();
-    if (date.getHours <= 6) {
-        updateCalendar();
-    }
+    updateCalendar();
 }, 1000 * 60 * 60 * 6);
 
 async function updateCalendar() {
+    console.log('going to call events');
     let events = await wuy.calendarEvents();
+    console.log('successfully got events');
+    console.log(events);
 
     let datetime = moment();
     let date = datetime.date();
@@ -55,7 +54,6 @@ async function updateCalendar() {
         let contentsID = 'day' + index + 'contents';
         let contents = '';
         for (let e of item.events) {
-            console.log(e);
             if (e.time) {
                 contents += e.time + ' - ' + e.title + '\n';
             } else {
@@ -66,14 +64,17 @@ async function updateCalendar() {
     });
 }
 
-// check every 20 minutes for new messages
+// check every 15 minutes for new messages
 window.setInterval(function () {
     checkForMessages();
-}, 1000 * 60 * 10);
+}, 1000 * 60 * 15);
 
 async function checkForMessages() {
+    console.log('going to check for emails');
     let currentMessageID = document.getElementById('message-id').text;
     let message = await wuy.emails(currentMessageID);
+    console.log('got email');
+    console.log(message);
     let currentTime = moment();
     let messageTime = moment(message['time'])
     let fourHoursAgo = currentTime.subtract('4', 'hours');

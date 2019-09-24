@@ -14,7 +14,7 @@ The project is in French, but could easily be forked and updated with any langua
 * Display upcoming events 
 
 ## Tech Used
-Raspberry pi + speaker + monitor
+Raspberry pi + monitor
 
 Vanilla Javascript for front end.
 Python for back end.
@@ -22,3 +22,5 @@ Python for back end.
 Integrations with Google Calendar & Gmail
 
 [WUY](https://github.com/manatlan/guy) to connect python back end to front end and serve a web application
+
+Yes, this includes a token for the Google account set up solely for this project. I ask kindly that you do not use it for evil.
