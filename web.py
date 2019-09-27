@@ -77,6 +77,7 @@ class home(wuy.Window):
         return agenda
 
     def emails(self, id):
+        print('********* BEGIN EMAIL FETCH *********')
         creds = None
         print('********* BEGIN EMAIL FETCH *********')
         # The file token.pickle stores the user's access and refresh tokens, and is
@@ -116,9 +117,6 @@ class home(wuy.Window):
                 id = header['value']
             elif header['name'] == 'Date':
                 time = header['value']
-
-        if latest['id'] != id:
-            playsound('definite.mp3')
         print('********* SUCCESSFUL FETCH OF MAIL *********')
 
         return email(readablebody, time, id)

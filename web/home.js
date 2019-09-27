@@ -5,13 +5,9 @@ window.onload = function () {
     updateCalendar();
 }
 
-// check every 6 hours if it is between 12am and 6am
-// at that time, update the calendar
+// check every 6 hours and update the calendar
 window.setInterval(function () {
-    let date = new Date();
-    if (date.getHours <= 6) {
-        updateCalendar();
-    }
+    updateCalendar();
 }, 1000 * 60 * 60 * 6);
 
 async function updateCalendar() {
@@ -68,10 +64,10 @@ async function updateCalendar() {
     });
 }
 
-// check every 20 minutes for new messages
+// check every 15 minutes for new messages
 window.setInterval(function () {
     checkForMessages();
-}, 1000 * 60 * 10);
+}, 1000 * 60 * 15);
 
 async function checkForMessages() {
     console.log('going to check for emails');
