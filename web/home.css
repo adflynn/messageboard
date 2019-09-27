@@ -1,3 +1,9 @@
+@font-face {
+    font-family: BlackJack;
+    src: url("../blackjack.otf") format("opentype");
+    src: url("./blackjack.otf") format("opentype");
+}
+
 body {
     font-family: 'Garamond';
     background-image: url('../hills.jpg');
@@ -75,6 +81,7 @@ body {
 
 #message-body {
     padding-top: 5vh;
+    font-family: "BlackJack";
 }
 
 #message-id {
