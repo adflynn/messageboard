@@ -17,18 +17,18 @@ async function updateCalendar() {
     console.log(events);
 
     let datetime = moment();
-    let date = datetime.date();
-    let dayOfWeek = datetime.day();
     let agenda = [];
 
     for (let i = 0; i < 4; i++) {
+        let datetimecopy = datetime;
         agenda.push({
-            day: dayOfWeek + i,
-            date: date + i,
+            day: datetimecopy.add('i', days).day(),
+            date: datetimecopy.add('i', days).date(),
             events: []
         });
     }
-
+    console.log('set up agenda dates');
+    
     for (let e of events) {
         let d = moment(e.time);
         let date = d.date();
