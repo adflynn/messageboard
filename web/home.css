@@ -82,6 +82,7 @@ body {
 #message-body {
     padding-top: 5vh;
     font-family: "BlackJack";
+    white-space: pre;
 }
 
 #message-id {
