@@ -53,10 +53,13 @@ class home(wuy.Window):
 
         # Call the Calendar API for the next 4 days
         print('********* AUTH SET UP *********')
-        now = datetime.datetime.utcnow().isoformat() + 'Z'
-        fourdays = date_N_days_ago = datetime.datetime.utcnow() + datetime.timedelta(days=4)
+        now = datetime.datetime.utcnow()
+        midnight = datetime.datetime.combine(now, datetime.datetime.min.time()) - datetime.timedelta(days=1) 
+        midnighttoday = midnight.isoformat() + 'Z'
+        fourdays =  datetime.datetime.utcnow() + datetime.timedelta(days=4)
         fourdays = fourdays.isoformat() + 'Z'
-        events_result = service.events().list(calendarId='primary', timeMin=now, timeMax=fourdays,
+        print(midnighttoday)
+        events_result = service.events().list(calendarId='primary', timeMin=midnighttoday, timeMax=fourdays,
                                               maxResults=10, singleEvents=True,
                                               orderBy='startTime').execute()
         events = events_result.get('items', [])

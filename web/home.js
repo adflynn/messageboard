@@ -17,18 +17,18 @@ async function updateCalendar() {
     console.log(events);
 
     let datetime = moment();
-    let agenda = [];
 
+    let agenda = [];
     for (let i = 0; i < 4; i++) {
-        let datetimecopy = datetime;
         agenda.push({
-            day: datetimecopy.add('i', days).day(),
-            date: datetimecopy.add('i', days).date(),
+            day: datetime.day(),
+            date: datetime.date(),
+            month: datetime.month(),
             events: []
         });
+        datetime.add(1, 'days');
     }
-    console.log('set up agenda dates');
-    
+
     for (let e of events) {
         let d = moment(e.time);
         let date = d.date();
@@ -49,7 +49,11 @@ async function updateCalendar() {
         }
 
         let titleID = 'day' + index;
-        document.getElementById(titleID).innerHTML = convertDay(item.day) + ', ' + item.date;
+        if (index === 0) {
+            document.getElementById(titleID).innerHTML = convertDay(item.day) + ', ' + item.date + ' ' + convertMonth(item.month) + '<span class="today"> (Aujourd\'hui)</span>';
+        } else {
+            document.getElementById(titleID).innerHTML = convertDay(item.day) + ', ' + item.date + ' ' + convertMonth(item.month);
+        }
 
         let contentsID = 'day' + index + 'contents';
         let contents = '';

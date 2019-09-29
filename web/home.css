@@ -35,7 +35,7 @@ body {
 }
 
 .day-title {
-    font-size: 5vh;
+    font-size: 4vh;
     border-bottom: 2px groove white;
 }
 
@@ -50,7 +50,7 @@ body {
 }
 
 #date {
-    font-size: 5vh;
+    font-size: 4.5vh;
     display: block;
 }
 
@@ -82,9 +82,13 @@ body {
 #message-body {
     padding-top: 5vh;
     font-family: "BlackJack";
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 #message-id {
     display: none;
+}
+
+.today {
+    font-size: 3.5vh;
 }
