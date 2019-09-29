@@ -8,7 +8,7 @@ window.onload = function () {
 // check every 6 hours and update the calendar
 window.setInterval(function () {
     updateCalendar();
-}, 1000 * 60 * 60 * 6);
+}, 1000 * 60 * 60 * 4);
 
 async function updateCalendar() {
     console.log('going to call events');

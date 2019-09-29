@@ -24,3 +24,18 @@ Integrations with Google Calendar & Gmail
 [WUY](https://github.com/manatlan/guy) to connect python back end to front end and serve a web application
 
 Yes, this includes a token for the Google account set up solely for this project. I ask kindly that you do not use it for evil.
+
+### TO RUN
+`python web.py`
+
+to disable screensaver
+
+```
+$ sudo xset s off
+$ sudo xset -dpms
+$ sudo xset s noblank
+```
+
+or use xscreensaver
+
+`sudo apt-get install xscreensaver`
