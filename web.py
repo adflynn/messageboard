@@ -54,7 +54,8 @@ class home(wuy.Window):
         # Call the Calendar API for the next 4 days
         print('********* AUTH SET UP *********')
         now = datetime.datetime.utcnow()
-        midnight = datetime.datetime.combine(now, datetime.datetime.min.time()) - datetime.timedelta(days=1) 
+        midnight = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        print(midnight)
         midnighttoday = midnight.isoformat() + 'Z'
         fourdays =  datetime.datetime.utcnow() + datetime.timedelta(days=4)
         fourdays = fourdays.isoformat() + 'Z'
