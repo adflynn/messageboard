@@ -56,7 +56,7 @@ body {
 
 .message {
     width: 50%;
-    padding-top: 20vh;
+    padding-top: 10vh;
     padding-left: 5vh;
     text-align: center;
     font-size: 5vh;
@@ -83,6 +83,11 @@ body {
     padding-top: 5vh;
     font-family: "BlackJack";
     white-space: pre-wrap;
+    min-height: 50%;
+}
+
+#message-attachment, img {
+    max-height: 300px;
 }
 
 #message-id {

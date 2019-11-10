@@ -5,10 +5,10 @@ window.onload = function () {
     updateCalendar();
 }
 
-// check every 6 hours and update the calendar
+// check every 30 min and update the calendar
 window.setInterval(function () {
     updateCalendar();
-}, 1000 * 60 * 60 * 4);
+}, 1000 * 60 * 30);
 
 async function updateCalendar() {
     console.log('going to call events');
@@ -68,15 +68,15 @@ async function updateCalendar() {
     });
 }
 
-// check every 15 minutes for new messages
+// check every 10 minutes for new messages
 window.setInterval(function () {
     checkForMessages();
-}, 1000 * 60 * 15);
+}, 1000 * 60 * 10);
 
 async function checkForMessages() {
     console.log('going to check for emails');
     let currentMessageID = document.getElementById('message-id').text;
-    let message = await wuy.emails(currentMessageID);
+    let message = await wuy.emails();
     console.log('got email');
     console.log(message);
     let currentTime = moment();
@@ -87,6 +87,9 @@ async function checkForMessages() {
         updateMessageInfo('Boîte de Réception', null, 'Passes une bonne journée! \n Bisous, Anna', '0');
     } else if (message['id'] !== currentMessageID) {
         updateMessageInfo('&#9758; Nouveau! &#9756;', messageTime.format('HH:mm'), message['contents'], message['id']);
+        if (message['file_path']) {
+            updatePhoto(message['file_path']);
+        }
     }
 }
 
@@ -95,6 +98,11 @@ function updateMessageInfo(notification, time, body, id) {
     document.getElementById('message-body').innerHTML = body;
     document.getElementById('message-time').innerHTML = time;
     document.getElementById('message-id').text = id;
+}
+
+function updatePhoto(file) {
+    relativeFilePath = file.substr(6);
+    document.getElementById('message-attachment').innerHTML = '<img src=\'' + relativeFilePath + '\'/>'
 }
 
 function convertMonth(month) {
