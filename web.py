@@ -113,9 +113,8 @@ class home(wuy.Window):
 
         message = service.users().messages().get(userId='me', id=latest['id']).execute()
 
-        if len(message['payload']['parts']) > 1:
+        if message['payload']['parts'][0].get('parts'):
             bodydata = message['payload']['parts'][0]['parts'][0]['body']['data']
-
         else:
             bodydata = message['payload']['parts'][0]['body']['data']
 

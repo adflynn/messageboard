@@ -85,10 +85,13 @@ async function checkForMessages() {
 
     if (messageTime < fourHoursAgo) {
         updateMessageInfo('Boîte de Réception', null, 'Passes une bonne journée! \n Bisous, Anna', '0');
+        updatePhoto(null);
     } else if (message['id'] !== currentMessageID) {
         updateMessageInfo('&#9758; Nouveau! &#9756;', messageTime.format('HH:mm'), message['contents'], message['id']);
         if (message['file_path']) {
             updatePhoto(message['file_path']);
+        } else {
+            updatePhoto(null);
         }
     }
 }
@@ -101,8 +104,12 @@ function updateMessageInfo(notification, time, body, id) {
 }
 
 function updatePhoto(file) {
-    relativeFilePath = file.substr(6);
-    document.getElementById('message-attachment').innerHTML = '<img src=\'' + relativeFilePath + '\'/>'
+    if (file) {
+        relativeFilePath = file.substr(6);
+        document.getElementById('message-attachment').innerHTML = '<img src=\'' + relativeFilePath + '\'/>';
+    } else {
+        document.getElementById('message-attachment').innerHTML = '';
+    }
 }
 
 function convertMonth(month) {
