@@ -77,7 +77,7 @@ class home(wuy.Window):
                 allday = True
             summary = e['summary']
             agenda.append(event(summary, start, allday))
-            print(summary, start, allday)
+           # print( start, allday)
 
         print('********* SUCCESSFULLY GOT EVENTS *********')
         return agenda

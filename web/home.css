@@ -83,7 +83,7 @@ body {
     padding-top: 5vh;
     font-family: "BlackJack";
     white-space: pre-wrap;
-    min-height: 50%;
+    min-height: 40%;
 }
 
 #message-attachment, img {
