@@ -29,14 +29,21 @@ body {
     width: 40%;
 }
 
+.calendar {
+    margin-top: 60px;
+}
+
 .day {
-    padding-top: 4vh;
-    padding-left: 1vh;
+    padding: 1vh;
+    margin-top: 4vh;
+    margin-left: 1vh;
+    border: 2px groove white;
+    background-color: rgba(0,0,0,.5);
+    border-radius: 10px;
 }
 
 .day-title {
     font-size: 4vh;
-    border-bottom: 2px groove white;
 }
 
 .day-contents {
@@ -52,6 +59,7 @@ body {
 #date {
     font-size: 4.5vh;
     display: block;
+    text-align: center;
 }
 
 .message {
@@ -80,13 +88,23 @@ body {
 }
 
 #message-body {
-    padding-top: 8.5vh;
+    margin-top: 4vh;
+    padding:1vh;
     font-family: "BlackJack";
     white-space: pre-wrap;
     min-height: 35%;
+    background-color: rgba(0,0,0,.5);
+    border-radius: 10px;
 }
 
-#message-attachment, img {
+#message-attachment {
+    max-height: 300px;
+    padding: 1vh;
+}
+
+img {
+    margin:1vh;
+    border-radius:10px;
     max-height: 300px;
 }
 
