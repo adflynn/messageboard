@@ -1,13 +1,11 @@
 @font-face {
-    font-family: BlackJack;
-    src: url("../blackjack.otf") format("opentype");
-    src: url("./blackjack.otf") format("opentype");
+    font-family: CreamPeach;
+    src: url("./cream-peach.ttf") format("truetype");
 }
 
 body {
     font-family: 'Garamond';
     background-image: url('../hills.jpg');
-
     background-image: url('./hills.jpg');
     background-size: 220vh;
 }
@@ -38,7 +36,7 @@ body {
     margin-top: 4vh;
     margin-left: 1vh;
     border: 2px groove white;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0, 0, 0, .5);
     border-radius: 10px;
 }
 
@@ -74,12 +72,7 @@ body {
     font-size: 6vh;
     color: white;
     font-weight: 900;
-    text-shadow:
-    3px 3px 0 #000,
-   -3px -3px 0 #000,  
-    3px -3px 0 #000,
-   -3px  3px 0 #000,
-    3px  3px 0 #000
+    text-shadow: 3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000
 }
 
 #message-time {
@@ -89,11 +82,11 @@ body {
 
 #message-body {
     margin-top: 4vh;
-    padding:1vh;
-    font-family: "BlackJack";
+    padding: 1vh;
+    font-family: "CreamPeach";
     white-space: pre-wrap;
     min-height: 35%;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0, 0, 0, .5);
     border-radius: 10px;
 }
 
@@ -103,8 +96,8 @@ body {
 }
 
 img {
-    margin:1vh;
-    border-radius:10px;
+    margin: 1vh;
+    border-radius: 10px;
     max-height: 300px;
 }
 
