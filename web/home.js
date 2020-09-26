@@ -1,12 +1,11 @@
-
-window.onload = function () {
+window.onload = function() {
     getDateTime();
     checkForMessages();
     updateCalendar();
 }
 
 // check every 30 min and update the calendar
-window.setInterval(function () {
+window.setInterval(function() {
     updateCalendar();
 }, 1000 * 60 * 30);
 
@@ -69,7 +68,7 @@ async function updateCalendar() {
 }
 
 // check every 10 minutes for new messages
-window.setInterval(function () {
+window.setInterval(function() {
     checkForMessages();
 }, 1000 * 60 * 10);
 
@@ -81,9 +80,9 @@ async function checkForMessages() {
     console.log(message);
     let currentTime = moment();
     let messageTime = moment(message['time'])
-    let fourHoursAgo = currentTime.subtract('4', 'hours');
+    let tenHoursAgo = currentTime.subtract('10', 'hours');
 
-    if (messageTime < fourHoursAgo) {
+    if (messageTime < tenHoursAgo) {
         updateMessageInfo('Boîte de Réception', null, 'Passes une bonne journée! \n Bisous, Anna', '0');
         updatePhoto(null);
     } else if (message['id'] !== currentMessageID) {

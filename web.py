@@ -142,6 +142,7 @@ class home(wuy.Window):
 
                 file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
                 print('FOUND A FILE ')
+
                 path = ''.join(['./web/photos/', part['filename']])
 
                 f = open(path, 'wb')
